@@ -408,7 +408,6 @@
       <a href="#pillars">Approach</a>
       <a href="#kit">Free kit</a>
       <a href="#picks">Picks</a>
-      <a href="/shortener">Shortener</a>
     </nav>
     <a href="#kit" class="nav-cta">Get the free kit</a>
   </div>
@@ -483,22 +482,12 @@
 <section class="products" id="picks">
   <div class="section-head reveal">
     <span class="eyebrow">Recommended by Surge Daily</span>
-    <h2>Programs worth your time</h2>
+    <h2>Products worth your time</h2>
     <p>A short list, kept short on purpose. Each one is a paid program — as an affiliate, Surge Daily may earn a commission if you buy through these links.</p>
-  </div>
-  <div class="filter-row reveal">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="mind">Mind</button>
-    <button class="filter-btn" data-filter="body">Body</button>
   </div>
   <div class="product-grid reveal" id="productGrid"></div>
 </section>
 
-<div class="disclosure reveal">
-  <div class="disclosure-box">
-    <strong>Affiliate disclosure:</strong> Surge Daily participates in the Digistore24 affiliate program. Some links on this page are affiliate links, meaning we may earn a commission at no extra cost to you if you make a purchase. We only recommend things we'd stand behind.
-  </div>
-</div>
 
 <footer>
   <div class="footer-inner">
@@ -524,47 +513,47 @@
   const PRODUCTS = [
     {
       category: "mind",
-      badge: "Mind",
-      name: "Product Name 1",
-      tagline: "Short one-line hook goes here",
-      blurb: "One or two sentences on what this program helps with and who it's for. Replace with real product copy.",
-      price: "$—",
-      link: "https://www.digistore24.com/redir/PRODUCT_ID/YOUR_AFFILIATE_ID/",
-      image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80",
-      imageAlt: "A focused person reading a workbook"
+      badge: "Planner",
+      name: "Make My Plan",
+      tagline: "The Ultimate AI Goal Planner Template",
+      blurb: "Unlock the power of goal achievement with Make My Plan, an AI-powered goal planner designed for dreamers, doers, and achievers. Whether your audience is focused on personal growth, career advancement, fitness, or entrepreneurship, this intelligent platform offers everything they need to stay organized, motivated, and on track.",
+      price: "$38",
+      link: "https://www.checkout-ds24.com/redir/613934/mayanjabbaale77bc82/",
+      image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=872&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      imageAlt: "A focused plan for productivity"
     },
     {
       category: "body",
-      badge: "Body",
-      name: "Product Name 2",
-      tagline: "Short one-line hook goes here",
-      blurb: "One or two sentences on what this program helps with and who it's for. Replace with real product copy.",
-      price: "$—",
-      link: "https://www.digistore24.com/redir/PRODUCT_ID/YOUR_AFFILIATE_ID/",
-      image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80",
-      imageAlt: "A person training with bodyweight exercises"
+      badge: "Passive Income",
+      name: "Millionaire Partner System",
+      tagline: "Member area and video courses",
+      blurb: "How To Make An Additional $1,000 - $3,000 Per Day In Passive Income On Complete Autopilot In 2026",
+      price: "$800",
+      link: "https://millionairepartnership.com/webclass-d24#aff=mayanjabbaale77bc82",
+      image: "https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      imageAlt: "Make your first $1000 online."
     },
     {
       category: "mind",
-      badge: "Mind",
-      name: "Product Name 3",
-      tagline: "Short one-line hook goes here",
-      blurb: "One or two sentences on what this program helps with and who it's for. Replace with real product copy.",
-      price: "$—",
-      link: "https://www.digistore24.com/redir/PRODUCT_ID/YOUR_AFFILIATE_ID/",
-      image: "https://images.unsplash.com/photo-1519750157634-bdd4d5adc1cd?auto=format&fit=crop&q=80",
-      imageAlt: "A journal entry for habits and mindset"
+      badge: "Planner",
+      name: "Ultimate Dynamic Personal Budget.",
+      tagline: "Take Full Control of Your Finances with a Smart Budgeting Tool",
+      blurb: "A personal budget is one of the most powerful financial tools to help you manage your money with confidence. With this fully dynamic budget planner in Google Sheets, you can go beyond simple finance tracking and take proactive control of your income, expenses, and savings.",
+      price: "$30",
+      link: "https://www.digital-planning-studio.com/#aff=mayanjabbaale77bc82",
+      image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1311&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      imageAlt: "Budget well"
     },
     {
       category: "body",
-      badge: "Body",
-      name: "Product Name 4",
-      tagline: "Short one-line hook goes here",
-      blurb: "One or two sentences on what this program helps with and who it's for. Replace with real product copy.",
-      price: "$—",
-      link: "https://www.digistore24.com/redir/PRODUCT_ID/YOUR_AFFILIATE_ID/",
-      image: "https://images.unsplash.com/photo-1526401485004-31c223071c83?auto=format&fit=crop&q=80",
-      imageAlt: "A coach guiding a workout session"
+      badge: "Freelance",
+      name: "Freelancing Hacks Book",
+      tagline: "Contract Hack",
+      blurb: "Upwork and Fiverr users, independent consultants, creative professionals, and corporate employees looking to moon-light.",
+      price: "$17",
+      link: "https://www.checkout-ds24.com/redir/633281/mayanjabbaale77bc82/",
+      image: "https://images.unsplash.com/photo-1487073240288-854ac7f1bb3c?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      imageAlt: "A freelancer master mind"
     }
   ];
 
