@@ -25,8 +25,8 @@ api/
   shorten.js     POST /api/shorten → registers a slug
   [id].js        /go/:id, /recommend/:id → masked redirect
 public/
-  index.html     Shortener UI (served at /)
-  home.html      Surge Daily landing (served at /home)
+  index.html     Surge Daily landing (served at /)
+  shortener.html Shortener UI (served at /shortener)
 vercel.json      Rewrites
 package.json     @upstash/redis + nanoid
 .env             Upstash creds (gitignored)

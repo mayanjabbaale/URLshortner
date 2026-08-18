@@ -10,8 +10,8 @@
       "destination": "/api/[id]"
     },
     {
-      "source": "/home",
-      "destination": "/home.html"
+      "source": "/shortener",
+      "destination": "/shortener.html"
     }
   ]
 }
