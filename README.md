@@ -2,7 +2,7 @@
 
 Zero-cost URL shortener + referrer masker for affiliate links. Runs on Vercel + Upstash free tiers.
 
-Try it out - https://surge-daily.vercel.app/
+Try it out - https://surge-daily.vercel.app/shortener
 
 ## What it does
 
