@@ -2,6 +2,8 @@
 
 Zero-cost URL shortener + referrer masker for affiliate links. Runs on Vercel + Upstash free tiers.
 
+Try it out - https://surge-daily.vercel.app/
+
 ## What it does
 
 - Shortens long URLs into `https://<host>/go/<slug>` (or `/recommend/<slug>`)
