@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URL Shortener — Surge Daily</title>
+<meta name="description" content="Free zero-cost URL shortener for affiliate links. Strips referrers, masks traffic, passes through UTMs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12151c;
+    --bg-alt:#1b1f29;
+    --bg-card:#1e2330;
+    --ink:#f5f3ec;
+    --ink-dim:#a7acb9;
+    --accent:#ff5a36;
+    --accent-ink:#1a0b06;
+    --accent-2:#c4f135;
+    --line:rgba(245,243,236,0.12);
+    --danger:#ff5a5a;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+  h1,h2,h3{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+    line-height:1.02;
+    margin:0;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:600;
+  }
+  a{color:inherit;}
+  button{font-family:inherit;cursor:pointer;}
+  input{font-family:inherit;}
+
+  a:focus-visible, button:focus-visible, input:focus-visible{
+    outline:2px solid var(--accent-2);
+    outline-offset:3px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  header{
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px;
+    max-width:1120px; margin:0 auto;
+  }
+  .logo{
+    font-family:'Anton', sans-serif;
+    font-size:1.5rem;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+  }
+  .logo span{color:var(--accent);}
+
+  main{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:48px 24px;
+  }
+  .card{
+    width:100%;
+    max-width:640px;
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    border-radius:24px;
+    padding:40px 36px;
+  }
+  .card .eyebrow{display:block; margin-bottom:14px;}
+  .card h1{
+    font-size:clamp(2.2rem, 5vw, 3.2rem);
+    margin-bottom:18px;
+  }
+  .card h1 em{
+    font-style:normal;
+    color:var(--accent);
+  }
+  .card .lede{
+    color:var(--ink-dim);
+    font-size:1.02rem;
+    margin:0 0 32px;
+  }
+
+  .field{margin-bottom:18px;}
+  .field label{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.74rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+    margin-bottom:8px;
+  }
+  .field input{
+    width:100%;
+    padding:13px 14px;
+    border-radius:9px;
+    border:1px solid var(--line);
+    background:var(--bg-alt);
+    color:var(--ink);
+    font-size:0.98rem;
+    transition:border-color .15s ease;
+  }
+  .field input::placeholder{color:#5f6472;}
+  .field input:focus{border-color:var(--accent);}
+
+  .row{display:flex; gap:12px; align-items:stretch;}
+  .row .field{flex:1; margin-bottom:0;}
+  @media(max-width:520px){.row{flex-direction:column;}}
+
+  .submit{
+    width:100%;
+    margin-top:8px;
+    background:var(--accent);
+    color:var(--accent-ink);
+    border:none;
+    padding:15px 24px;
+    border-radius:9px;
+    font-weight:700;
+    font-size:1rem;
+    transition:transform .15s ease, opacity .15s ease;
+  }
+  .submit:hover{transform:translateY(-2px);}
+  .submit:disabled{opacity:0.6; cursor:not-allowed; transform:none;}
+
+  .result{
+    margin-top:24px;
+    background:var(--bg-alt);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:18px 20px;
+    display:none;
+  }
+  .result.show{display:block;}
+  .result-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--accent-2);
+    margin-bottom:8px;
+  }
+  .result-row{
+    display:flex;
+    gap:10px;
+    align-items:center;
+  }
+  .result-url{
+    flex:1;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.95rem;
+    color:var(--ink);
+    word-break:break-all;
+    background:var(--bg);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:10px 12px;
+  }
+  .copy-btn{
+    background:var(--ink);
+    color:var(--bg);
+    border:none;
+    padding:10px 16px;
+    border-radius:8px;
+    font-weight:700;
+    font-size:0.86rem;
+    white-space:nowrap;
+  }
+  .copy-btn:hover{background:var(--accent-2);}
+  .copy-btn.copied{background:var(--accent-2);}
+
+  .error{
+    margin-top:18px;
+    background:rgba(255,90,90,0.08);
+    border:1px solid rgba(255,90,90,0.4);
+    color:var(--danger);
+    border-radius:9px;
+    padding:12px 14px;
+    font-size:0.92rem;
+    display:none;
+  }
+  .error.show{display:block;}
+
+  .meta{
+    margin-top:28px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    color:var(--ink-dim);
+    font-size:0.82rem;
+  }
+  @media(max-width:520px){.meta{grid-template-columns:1fr;}}
+  .meta-item{display:flex; flex-direction:column; gap:4px;}
+  .meta-item strong{
+    color:var(--ink);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.06em;
+  }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:20px 24px;
+    text-align:center;
+    color:#5f6472;
+    font-size:0.8rem;
+  }
+  footer a{color:var(--ink-dim); text-decoration:none;}
+  footer a:hover{color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">SURGE DAILY<span>.</span></div>
+    <a href="/" style="text-decoration:none; color:var(--ink-dim); font-size:0.86rem;">Shortener</a>
+  </div>
+</header>
+
+<main>
+  <div class="card">
+    <span class="eyebrow">Zero-cost · referrer-masked</span>
+    <h1>Shorten a link.<br>Hide <em>where it came from.</em></h1>
+    <p class="lede">Paste any destination URL — including affiliate redirects — and get a clean short link that strips the HTTP referrer and forwards UTMs.</p>
+
+    <form id="shortenForm">
+      <div class="field">
+        <label for="url">Destination URL</label>
+        <input id="url" name="url" type="url" required placeholder="https://your-affiliate-network.com/product?id=123" autocomplete="off">
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="customSlug">Custom slug (optional)</label>
+          <input id="customSlug" name="customSlug" type="text" placeholder="myproduct" autocomplete="off" maxlength="40">
+        </div>
+      </div>
+
+      <button class="submit" type="submit" id="submitBtn">Shorten link</button>
+
+      <div class="error" id="error"></div>
+
+      <div class="result" id="result">
+        <div class="result-label">Your short link is ready</div>
+        <div class="result-row">
+          <div class="result-url" id="resultUrl"></div>
+          <button class="copy-btn" id="copyBtn" type="button">Copy</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="meta">
+      <div class="meta-item">
+        <strong>Bot-shielded</strong>
+        <span>Search crawlers get an empty 204.</span>
+      </div>
+      <div class="meta-item">
+        <strong>UTM pass-through</strong>
+        <span>Query params follow the click.</span>
+      </div>
+      <div class="meta-item">
+        <strong>5-min edge cache</strong>
+        <span>Free tier stays free.</span>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <span>Powered by Vercel + Upstash · <a href="/">Surge Daily</a></span>
+</footer>
+
+<script>
+  const form = document.getElementById('shortenForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const errorEl = document.getElementById('error');
+  const resultEl = document.getElementById('result');
+  const resultUrlEl = document.getElementById('resultUrl');
+  const copyBtn = document.getElementById('copyBtn');
+
+  function showError(msg){
+    errorEl.textContent = msg;
+    errorEl.classList.add('show');
+    resultEl.classList.remove('show');
+  }
+  function hideError(){
+    errorEl.classList.remove('show');
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hideError();
+    resultEl.classList.remove('show');
+
+    const url = document.getElementById('url').value.trim();
+    const customSlug = document.getElementById('customSlug').value.trim();
+
+    if (!url) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Shortening…';
+
+    try {
+      const res = await fetch('/api/shorten', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url, customSlug: customSlug || undefined })
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        showError(data.error || `Request failed (${res.status}).`);
+        return;
+      }
+
+      resultUrlEl.textContent = data.shortUrl;
+      resultEl.classList.add('show');
+    } catch (err) {
+      showError('Network error — please try again.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Shorten link';
+    }
+  });
+
+  copyBtn.addEventListener('click', async () => {
+    const text = resultUrlEl.textContent;
+    if (!text) return;
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (_) {
+      // fallback: select the text
+      const range = document.createRange();
+      range.selectNodeContents(resultUrlEl);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+    copyBtn.textContent = 'Copied ✓';
+    copyBtn.classList.add('copied');
+    setTimeout(() => {
+      copyBtn.textContent = 'Copy';
+      copyBtn.classList.remove('copied');
+    }, 1600);
+  });
+</script>
+
+</body>
+</html>

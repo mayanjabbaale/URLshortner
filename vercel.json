@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/go/:id",
+      "destination": "/api/[id]"
+    },
+    {
+      "source": "/recommend/:id",
+      "destination": "/api/[id]"
+    },
+    {
+      "source": "/home",
+      "destination": "/home.html"
+    }
+  ]
+}
